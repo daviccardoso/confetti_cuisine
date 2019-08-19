@@ -2,21 +2,24 @@ const errorController = require('./controllers/errorController');
 const homeController = require('./controllers/homeController');
 const layouts = require('express-ejs-layouts');
 const express = require('express');
-const MongoDB = require('mongodb').MongoClient;
-const dbURL = 'mongodb://localhost:27017';
-const dbName = 'recipe_db';
+const mongoose = require('mongoose');
 const app = express();
 
-MongoDB.connect(dbURL, (error, client) => {
-  if (error) throw error;
-  const db = client.db(dbName);
-  db.collection('contacts')
-    .find()
-    .toArray((error, data) => {
-      if (error) throw error;
-      console.log(data);
-    });
+const subscriberSchema = mongoose.Schema({
+  'name': String,
+  'email': String,
+  'zipCode': Number
 });
+
+mongoose.connect(
+  'mongodb://localhost:27017/recipe_db',
+  { useNewUrlParser: true }
+);
+
+const db = mongoose.connection;
+db.once('open', () =>
+  console.log('Successfully connected to MongoDB using Mongoose!')
+);
 
 app.use(express.urlencoded({
   extended: false
