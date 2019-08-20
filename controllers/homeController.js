@@ -16,6 +16,5 @@ exports.showCourses = (req, res) => {
 
   res.render('courses', { title: 'Courses', offeredCourses });
 };
-exports.showSignUp = (req, res) => res.render('contact', { title: 'Contact' });
 exports.postedSignUpForm = (req, res) => res.render('thanks', { title: 'Thanks!' });
 exports.showHome = (req, res) => res.render('index', { title: 'Home' });
