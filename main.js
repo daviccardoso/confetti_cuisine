@@ -1,14 +1,12 @@
+const subscribersController = require('./controllers/subscribersController');
 const errorController = require('./controllers/errorController');
 const homeController = require('./controllers/homeController');
 const layouts = require('express-ejs-layouts');
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
-const subscriberSchema = mongoose.Schema({
-  'name': String,
-  'email': String,
-  'zipCode': Number
-});
+
+mongoose.Promise = global.Promise;
 
 mongoose.connect(
   'mongodb://localhost:27017/recipe_db',
@@ -19,26 +17,6 @@ const db = mongoose.connection;
 db.once('open', () =>
   console.log('Successfully connected to MongoDB using Mongoose!')
 );
-
-const Subscriber = mongoose.model('Subscriber', subscriberSchema);
-
-const subscriber1 = new Subscriber({
-  'name': 'Jon Wexler',
-  'email': 'jon@jonwexler.com'
-});
-
-subscriber1.save((error, savedDocument) => {
-  if (error) console.error(error);
-  console.log(savedDocument);
-});
-
-Subscriber.create({
-  'name': 'Helena Cardoso',
-  'email': 'helena@davicardoso.com'
-}, (error, savedDocument) => {
-  if (error) console.error(error);
-  console.log(savedDocument);
-});
 
 app.use(express.urlencoded({
   extended: false
@@ -52,8 +30,12 @@ app.set('view engine', 'ejs');
 
 app.get('/', homeController.showHome);
 app.get('/courses', homeController.showCourses);
-app.get('/contact', homeController.showSignUp);
-app.post('/contact', homeController.postedSignUpForm);
+app.get('/contact', subscribersController.getSubscriptionPage);
+app.get('/subscribe', subscribersController.getSubscriptionPage);
+app.post('/subscribe', subscribersController.saveSubscriber);
+app.get('/subscribers', subscribersController.getAllSubscribers,
+  (req, res, next) => res.render('subscribers', { subscribers: req.data })
+);
 app.use(errorController.pageNotFound);
 app.use(errorController.internalServerError);
 
