@@ -4,7 +4,6 @@ const layouts = require('express-ejs-layouts');
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
-
 const subscriberSchema = mongoose.Schema({
   'name': String,
   'email': String,
@@ -20,6 +19,26 @@ const db = mongoose.connection;
 db.once('open', () =>
   console.log('Successfully connected to MongoDB using Mongoose!')
 );
+
+const Subscriber = mongoose.model('Subscriber', subscriberSchema);
+
+const subscriber1 = new Subscriber({
+  'name': 'Jon Wexler',
+  'email': 'jon@jonwexler.com'
+});
+
+subscriber1.save((error, savedDocument) => {
+  if (error) console.error(error);
+  console.log(savedDocument);
+});
+
+Subscriber.create({
+  'name': 'Helena Cardoso',
+  'email': 'helena@davicardoso.com'
+}, (error, savedDocument) => {
+  if (error) console.error(error);
+  console.log(savedDocument);
+});
 
 app.use(express.urlencoded({
   extended: false
