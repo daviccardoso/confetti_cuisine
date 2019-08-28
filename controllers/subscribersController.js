@@ -1,9 +1,10 @@
 const Subscriber = require('../models/subscriber');
-const mongoose = require('mongoose');
 
-exports.getSubscriptionPage = (req, res) => res.render('contact');
+function getSubscriptionPage(req, res) {
+  res.render('contact');
+}
 
-exports.getAllSubscribers = (req, res) => {
+function getAllSubscribers(req, res) {
   Subscriber.find({})
     .then(subscribers => res.render('subscribers', { subscribers }))
     .catch(error => {
@@ -11,10 +12,12 @@ exports.getAllSubscribers = (req, res) => {
       return [];
     })
     .finally(() => console.log('Promise complete.'));
-};
+}
 
-exports.saveSubscriber = (req, res) => {
+function saveSubscriber(req, res) {
   Subscriber.create({ ...{ name, email, zipCode } = req.body })
     .then(() => res.render('thanks'))
     .catch(error => res.send(error))
-};
+}
+
+module.exports = { saveSubscriber, getSubscriptionPage, getAllSubscribers };
