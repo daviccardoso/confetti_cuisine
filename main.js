@@ -1,5 +1,6 @@
 const subscribersController = require('./controllers/subscribersController');
 const errorController = require('./controllers/errorController');
+const usersController = require('./controllers/usersController');
 const homeController = require('./controllers/homeController');
 const layouts = require('express-ejs-layouts');
 const express = require('express');
@@ -31,9 +32,10 @@ app.set('view engine', 'ejs');
 app.get('/', homeController.showHome);
 app.get('/courses', homeController.showCourses);
 app.get('/contact', subscribersController.getSubscriptionPage);
+app.get('/users', usersController.index, usersController.indexView);
 app.get('/subscribe', subscribersController.getSubscriptionPage);
 app.post('/subscribe', subscribersController.saveSubscriber);
-app.get('/subscribers', subscribersController.getAllSubscribers);
+app.get('/subscribers', subscribersController.index);
 app.use(errorController.pageNotFound);
 app.use(errorController.internalServerError);
 
