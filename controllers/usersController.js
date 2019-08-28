@@ -7,7 +7,7 @@ function index(req, res, next) {
       next();
     })
     .catch(error => {
-      console.log(`Error fetching users: ${error.messafe}`);
+      console.log(`Error fetching users: ${error.message}`);
       next(error);
     });
 }
