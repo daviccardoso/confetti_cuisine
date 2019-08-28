@@ -4,9 +4,9 @@ function getSubscriptionPage(req, res) {
   res.render('contact');
 }
 
-function getAllSubscribers(req, res) {
+function index(req, res) {
   Subscriber.find({})
-    .then(subscribers => res.render('subscribers', { subscribers }))
+    .then(subscribers => res.render('subscribers/index', { subscribers }))
     .catch(error => {
       console.log(error.message);
       return [];
@@ -20,4 +20,4 @@ function saveSubscriber(req, res) {
     .catch(error => res.send(error))
 }
 
-module.exports = { saveSubscriber, getSubscriptionPage, getAllSubscribers };
+module.exports = { saveSubscriber, getSubscriptionPage, index };
