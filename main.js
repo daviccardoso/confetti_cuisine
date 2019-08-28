@@ -33,6 +33,8 @@ app.get('/', homeController.showHome);
 app.get('/courses', homeController.showCourses);
 app.get('/contact', subscribersController.getSubscriptionPage);
 app.get('/users', usersController.index, usersController.indexView);
+app.get('/users/new', usersController.newUser);
+app.post('/users/create', usersController.create, usersController.redirectView);
 app.get('/subscribe', subscribersController.getSubscriptionPage);
 app.post('/subscribe', subscribersController.saveSubscriber);
 app.get('/subscribers', subscribersController.index);
