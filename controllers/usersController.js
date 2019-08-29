@@ -32,7 +32,6 @@ function create(req, res, next) {
   })
     .then(user => {
       res.locals.redirect = '/users';
-      res.locals.users = user;
       next();
     })
     .catch(error => {
