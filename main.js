@@ -15,30 +15,34 @@ mongoose.connect(
   { useNewUrlParser: true }
 );
 
-const db = mongoose.connection;
-db.once('open', () =>
-  console.log('Successfully connected to MongoDB using Mongoose!')
-);
-
-app.use(express.urlencoded({
-  extended: false
-}));
+// Application settings
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(layouts);
 app.use(express.static('public'));
-
 app.set('port', process.env.PORT || 3000);
 app.set('view engine', 'ejs');
 
+// Home
 app.get('/', homeController.index);
+
+// Courses
 app.get('/courses', coursesController.index);
+
+// Users
 app.get('/users', usersController.index, usersController.indexView);
 app.get('/users/new', usersController.newUser);
+app.get('/users/:id', usersController.show, usersController.showView);
 app.post('/users/create', usersController.create, usersController.redirectView);
+
+// Subscribers
 app.get('/subscribers', subscribersController.index);
 app.get('/contact', subscribersController.newSubscriber);
 app.get('/subscribe', subscribersController.newSubscriber);
+app.get('/subscribers/:id', subscribersController.show, subscribersController.showView);
 app.post('/subscribers/create', subscribersController.create);
+
+// Middleware error functions
 app.use(errorController.pageNotFound);
 app.use(errorController.internalServerError);
 
