@@ -20,4 +20,22 @@ function create(req, res) {
     .catch(error => res.send(error))
 }
 
-module.exports = { index, newSubscriber, create };
+function show(req, res, next) {
+  const subscriberId = req.params.id;
+
+  Subscriber.findById(subscriberId)
+    .then(subscriber => {
+      res.locals.subscriber = subscriber;
+      next()
+    })
+    .catch(error => {
+      console.log(`Error fetching subscriber by ID: ${error.message}`);
+      next(error);
+    });
+}
+
+function showView(req, res) {
+  res.render('subscribers/show');
+}
+
+module.exports = { index, newSubscriber, create, show, showView };
