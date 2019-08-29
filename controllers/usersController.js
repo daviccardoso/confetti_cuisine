@@ -40,6 +40,24 @@ function create(req, res, next) {
     });
 }
 
+function show(req, res, next) {
+  const userId = req.params.id;
+
+  User.findById(userId)
+    .then(user => {
+      res.locals.user = user;
+      next();
+    })
+    .catch(error => {
+      console.log(`Error fetching user by ID: ${error.message}`);
+      next(error);
+    });
+}
+
+function showView(req, res) {
+  res.render('users/show');
+}
+
 function redirectView(req, res, next) {
   const redirectPath = res.locals.redirect;
 
@@ -47,4 +65,12 @@ function redirectView(req, res, next) {
   else next();
 }
 
-module.exports = { index, indexView, newUser, create, redirectView };
+module.exports = {
+  index,
+  indexView,
+  newUser,
+  create,
+  show,
+  showView,
+  redirectView
+};
