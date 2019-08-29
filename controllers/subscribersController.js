@@ -1,9 +1,5 @@
 const Subscriber = require('../models/subscriber');
 
-function getSubscriptionPage(req, res) {
-  res.render('contact');
-}
-
 function index(req, res) {
   Subscriber.find({})
     .then(subscribers => res.render('subscribers/index', { subscribers }))
@@ -14,10 +10,14 @@ function index(req, res) {
     .finally(() => console.log('Promise complete.'));
 }
 
-function saveSubscriber(req, res) {
+function newSubscriber(req, res) {
+  res.render('contact');
+}
+
+function create(req, res) {
   Subscriber.create({ ...{ name, email, zipCode } = req.body })
     .then(() => res.render('thanks'))
     .catch(error => res.send(error))
 }
 
-module.exports = { saveSubscriber, getSubscriptionPage, index };
+module.exports = { index, newSubscriber, create };
