@@ -1,4 +1,5 @@
 const subscribersController = require('./controllers/subscribersController');
+const coursesController = require('./controllers/coursesController');
 const errorController = require('./controllers/errorController');
 const usersController = require('./controllers/usersController');
 const homeController = require('./controllers/homeController');
@@ -29,15 +30,15 @@ app.use(express.static('public'));
 app.set('port', process.env.PORT || 3000);
 app.set('view engine', 'ejs');
 
-app.get('/', homeController.showHome);
-app.get('/courses', homeController.showCourses);
-app.get('/contact', subscribersController.getSubscriptionPage);
+app.get('/', homeController.index);
+app.get('/courses', coursesController.index);
 app.get('/users', usersController.index, usersController.indexView);
 app.get('/users/new', usersController.newUser);
 app.post('/users/create', usersController.create, usersController.redirectView);
-app.get('/subscribe', subscribersController.getSubscriptionPage);
-app.post('/subscribe', subscribersController.saveSubscriber);
 app.get('/subscribers', subscribersController.index);
+app.get('/contact', subscribersController.newSubscriber);
+app.get('/subscribe', subscribersController.newSubscriber);
+app.post('/subscribers/create', subscribersController.create);
 app.use(errorController.pageNotFound);
 app.use(errorController.internalServerError);
 
