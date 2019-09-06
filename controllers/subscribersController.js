@@ -6,8 +6,7 @@ function index(req, res) {
     .catch(error => {
       console.log(error.message);
       return [];
-    })
-    .finally(() => console.log('Promise complete.'));
+    });
 }
 
 function newSubscriber(req, res) {
