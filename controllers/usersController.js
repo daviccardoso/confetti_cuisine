@@ -40,6 +40,44 @@ function create(req, res, next) {
     });
 }
 
+function edit(req, res, next) {
+  const userId = req.params.id;
+
+  User.findById(userId)
+    .then(user => {
+      res.render('users/edit', { user });
+    })
+    .catch(error => {
+      console.error(`Error fetching user by ID: ${error.message}`);
+      next(error);
+    });
+}
+
+function update(req, res, next) {
+  const userId = req.params.id;
+  const userData = {
+    'name': {
+      'first': req.body.first,
+      'last': req.body.last
+    },
+    'email': req.body.email,
+    'password': req.body.password,
+    'zipCode': req.body.zipCode
+  };
+
+  User.findByIdAndUpdate(userId, {
+    $set: userData
+  })
+    .then(user => {
+      res.locals.redirect = '/users/${userId}';
+      next()
+    })
+    .catch(error => {
+      console.error(`Error updating user by ID: ${error.message}`);
+      next(error);
+    });
+}
+
 function show(req, res, next) {
   const userId = req.params.id;
 
@@ -70,6 +108,8 @@ module.exports = {
   indexView,
   newUser,
   create,
+  edit,
+  update,
   show,
   showView,
   redirectView
