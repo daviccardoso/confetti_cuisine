@@ -3,10 +3,12 @@ const coursesController = require('./controllers/coursesController');
 const errorController = require('./controllers/errorController');
 const usersController = require('./controllers/usersController');
 const homeController = require('./controllers/homeController');
+const methodOverride = require('method-override');
 const layouts = require('express-ejs-layouts');
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
+const router = express.Router();
 
 mongoose.Promise = global.Promise;
 
@@ -16,31 +18,35 @@ mongoose.connect(
 );
 
 // Application settings
+app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(layouts);
+app.use('/', router);
 app.use(express.static('public'));
 app.set('port', process.env.PORT || 3000);
 app.set('view engine', 'ejs');
 
 // Home
-app.get('/', homeController.index);
+router.get('/', homeController.index);
 
 // Courses
-app.get('/courses', coursesController.index);
+router.get('/courses', coursesController.index);
 
 // Users
-app.get('/users', usersController.index, usersController.indexView);
-app.get('/users/new', usersController.newUser);
-app.get('/users/:id', usersController.show, usersController.showView);
-app.post('/users/create', usersController.create, usersController.redirectView);
+router.get('/users', usersController.index, usersController.indexView);
+router.get('/users/new', usersController.newUser);
+router.get('/users/:id', usersController.show, usersController.showView);
+router.get('/users/:id/edit', usersController.edit);
+router.post('/users/create', usersController.create, usersController.redirectView);
+router.put('users/:id/update', usersController.update, usersController.redirectView);
 
 // Subscribers
-app.get('/subscribers', subscribersController.index);
-app.get('/contact', subscribersController.newSubscriber);
-app.get('/subscribe', subscribersController.newSubscriber);
-app.get('/subscribers/:id', subscribersController.show, subscribersController.showView);
-app.post('/subscribers/create', subscribersController.create);
+router.get('/subscribers', subscribersController.index);
+router.get('/contact', subscribersController.newSubscriber);
+router.get('/subscribe', subscribersController.newSubscriber);
+router.get('/subscribers/:id', subscribersController.show, subscribersController.showView);
+router.post('/subscribers/create', subscribersController.create);
 
 // Middleware error functions
 app.use(errorController.pageNotFound);
