@@ -31,7 +31,7 @@ function create(req, res, next) {
     'zipCode': req.body.zipCode
   })
     .then(user => {
-      res.locals.redirect = '/users';
+      res.locals.redirect = `/users/${user._id}`;
       next();
     })
     .catch(error => {
