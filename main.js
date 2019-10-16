@@ -14,7 +14,12 @@ mongoose.Promise = global.Promise;
 
 mongoose.connect(
   'mongodb://localhost:27017/recipe_db',
-  { useNewUrlParser: true }
+  {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+  }
 );
 
 // Application settings
@@ -36,10 +41,10 @@ router.get('/courses', coursesController.index);
 // Users
 router.get('/users', usersController.index, usersController.indexView);
 router.get('/users/new', usersController.newUser);
+router.post('/users/create', usersController.create, usersController.redirectView);
 router.get('/users/:id', usersController.show, usersController.showView);
 router.get('/users/:id/edit', usersController.edit);
-router.post('/users/create', usersController.create, usersController.redirectView);
-router.put('users/:id/update', usersController.update, usersController.redirectView);
+router.put('/users/:id/update', usersController.update, usersController.redirectView);
 
 // Subscribers
 router.get('/subscribers', subscribersController.index);
