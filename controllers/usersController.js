@@ -78,6 +78,20 @@ function update(req, res, next) {
     });
 }
 
+function deleteUser(req, res, next) {
+  const userId = req.params.id;
+
+  User.findByIdAndRemove(userId)
+    .then(() => {
+      res.locals.redirect = '/users';
+      next();
+    })
+    .catch(error => {
+      console.log(`Error deleting user by ID: ${error.message}`);
+      next(error);
+    });
+}
+
 function show(req, res, next) {
   const userId = req.params.id;
 
@@ -110,6 +124,7 @@ module.exports = {
   create,
   edit,
   update,
+  deleteUser,
   show,
   showView,
   redirectView
