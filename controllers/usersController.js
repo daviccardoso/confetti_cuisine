@@ -69,7 +69,7 @@ function update(req, res, next) {
     $set: userData
   })
     .then(user => {
-      res.locals.redirect = '/users/${userId}';
+      res.locals.redirect = `/users/${userId}`;
       next()
     })
     .catch(error => {
