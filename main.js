@@ -23,7 +23,7 @@ mongoose.connect(
 );
 
 // Application settings
-app.use(methodOverride('_method'));
+app.use(methodOverride('_method', { methods: ['POST', 'GET']}));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(layouts);
@@ -45,6 +45,7 @@ router.post('/users/create', usersController.create, usersController.redirectVie
 router.get('/users/:id', usersController.show, usersController.showView);
 router.get('/users/:id/edit', usersController.edit);
 router.put('/users/:id/update', usersController.update, usersController.redirectView);
+router.delete('/users/:id/delete', usersController.deleteUser, usersController.redirectView);
 
 // Subscribers
 router.get('/subscribers', subscribersController.index);
