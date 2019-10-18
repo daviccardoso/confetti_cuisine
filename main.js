@@ -7,8 +7,8 @@ const methodOverride = require('method-override');
 const layouts = require('express-ejs-layouts');
 const express = require('express');
 const mongoose = require('mongoose');
-const app = express();
 const router = express.Router();
+const app = express();
 
 mongoose.Promise = global.Promise;
 
@@ -23,7 +23,7 @@ mongoose.connect(
 );
 
 // Application settings
-app.use(methodOverride('_method', { methods: ['POST', 'GET']}));
+app.use(methodOverride('_method', { methods: ['POST', 'GET'] }));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(layouts);
@@ -33,26 +33,67 @@ app.set('port', process.env.PORT || 3000);
 app.set('view engine', 'ejs');
 
 // Home
-router.get('/', homeController.index);
+router.get('/',
+  homeController.index);
 
 // Courses
-router.get('/courses', coursesController.index);
+router.get('/courses',
+  coursesController.index);
 
 // Users
-router.get('/users', usersController.index, usersController.indexView);
-router.get('/users/new', usersController.newUser);
-router.post('/users/create', usersController.create, usersController.redirectView);
-router.get('/users/:id', usersController.show, usersController.showView);
-router.get('/users/:id/edit', usersController.edit);
-router.put('/users/:id/update', usersController.update, usersController.redirectView);
-router.delete('/users/:id/delete', usersController.deleteUser, usersController.redirectView);
+router.get('/users',
+  usersController.index,
+  usersController.indexView);
+
+router.get('/users/new',
+  usersController.newUser);
+
+router.post('/users/create',
+  usersController.create,
+  usersController.redirectView);
+
+router.get('/users/:id',
+  usersController.show,
+  usersController.showView);
+
+router.get('/users/:id/edit',
+  usersController.edit);
+
+router.put('/users/:id/update',
+  usersController.update,
+  usersController.redirectView);
+
+router.delete('/users/:id/delete',
+  usersController.deleteUser,
+  usersController.redirectView);
 
 // Subscribers
-router.get('/subscribers', subscribersController.index);
-router.get('/contact', subscribersController.newSubscriber);
-router.get('/subscribe', subscribersController.newSubscriber);
-router.get('/subscribers/:id', subscribersController.show, subscribersController.showView);
-router.post('/subscribers/create', subscribersController.create);
+router.get('/subscribers',
+  subscribersController.index);
+
+router.get('/contact',
+  subscribersController.newSubscriber);
+
+router.get('/subscribe',
+  subscribersController.newSubscriber);
+
+router.post('/subscribers/create',
+  subscribersController.create);
+
+router.get('/subscribers/:id',
+  subscribersController.show,
+  subscribersController.showView);
+
+router.get('/subscribers/:id/edit',
+  subscribersController.edit);
+
+router.put('/subscribers/:id/update',
+  subscribersController.update,
+  subscribersController.redirectView);
+
+router.delete('/subscribers/:id/delete',
+  subscribersController.deleteSubscriber,
+  subscribersController.redirectView);
 
 // Middleware error functions
 app.use(errorController.pageNotFound);
