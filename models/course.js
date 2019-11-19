@@ -9,16 +9,19 @@ const courseSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  'items': [],
-  'zipCode': {
+  'maxStudents': {
     type: Number,
-    min: [10000, 'Zip code too short'],
-    max: 99999
+    default: 0,
+    min: [0, 'Course cannot have a negative number of students']
   },
-  'subscribers': [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Subscriber'
-  }]
+  'cost': {
+    type: Number,
+    default: 0,
+    min: [0, 'Course cannot have a negative cost']
+  },
+  'subscribers': [{ type: mongoose.Schema.Types.ObjectId, ref: 'Subscriber' }]
+}, {
+  timestamps: true
 });
 
 module.exports = mongoose.model('Course', courseSchema);
