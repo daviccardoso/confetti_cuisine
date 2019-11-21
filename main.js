@@ -40,6 +40,28 @@ router.get('/',
 router.get('/courses',
   coursesController.index);
 
+router.get('/courses/new',
+  coursesController.newCourse);
+
+router.post('/courses/create',
+  coursesController.create,
+  coursesController.redirectView);
+
+router.get('/courses/:id',
+  coursesController.show,
+  coursesController.showView);
+
+router.get('/courses/:id/edit',
+  coursesController.edit);
+
+router.put('/courses/:id/update',
+  coursesController.update,
+  coursesController.redirectView);
+
+router.delete('/courses/:id/delete',
+  coursesController.deleteCourse,
+  coursesController.redirectView);
+
 // Users
 router.get('/users',
   usersController.index,
@@ -69,12 +91,10 @@ router.delete('/users/:id/delete',
 
 // Subscribers
 router.get('/subscribers',
-  subscribersController.index);
+  subscribersController.index,
+  subscribersController.indexView);
 
-router.get('/contact',
-  subscribersController.newSubscriber);
-
-router.get('/subscribe',
+router.get('/subscribers/new',
   subscribersController.newSubscriber);
 
 router.post('/subscribers/create',
