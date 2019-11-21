@@ -1,12 +1,27 @@
 const Subscriber = require('../models/subscriber');
 
-function index(req, res) {
+function getSubscriberParams(body) {
+  return {
+    name: body.name,
+    email: body.email,
+    zipCode: parseInt(body.zipCode)
+  };
+}
+
+function index(req, res, next) {
   Subscriber.find({})
-    .then(subscribers => res.render('subscribers/index', { subscribers }))
+    .then(subscribers => {
+      res.locals.subscribers = subscribers;
+      next();
+    })
     .catch(error => {
-      console.log(error.message);
-      return [];
+      console.log(`Error fetching subscribers: ${error.message}`);
+      next(error);
     });
+}
+
+function indexView(req, res) {
+  res.render('subscribers/index');
 }
 
 function newSubscriber(req, res) {
@@ -14,7 +29,7 @@ function newSubscriber(req, res) {
 }
 
 function create(req, res) {
-  Subscriber.create({ ...{ name, email, zipCode } = req.body })
+  Subscriber.create(getSubscriberParams(req.body))
     .then(() => res.render('thanks'))
     .catch(error => res.send(error))
 }
@@ -88,6 +103,7 @@ function redirectView(req, res) {
 
 module.exports = {
   index,
+  indexView,
   newSubscriber,
   create,
   edit,
