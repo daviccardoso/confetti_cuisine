@@ -38,7 +38,8 @@ router.get('/',
 
 // Courses
 router.get('/courses',
-  coursesController.index);
+  coursesController.index,
+  coursesController.indexView);
 
 router.get('/courses/new',
   coursesController.newCourse);
