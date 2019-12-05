@@ -31,10 +31,10 @@ function newSubscriber(req, res) {
 function create(req, res) {
   Subscriber.create(getSubscriberParams(req.body))
     .then(() => res.render('thanks'))
-    .catch(error => res.send(error))
+    .catch(error => res.send(error));
 }
 
-function edit(req, res) {
+function edit(req, res, next) {
   const subscriberId = req.params.id;
 
   Subscriber.findById(subscriberId)
@@ -47,7 +47,7 @@ function edit(req, res) {
 
 function update(req, res, next) {
   const subscriberId = req.params.id;
-  const subscriberData = { name, email, zipCode } = req.body;
+  const subscriberData = getSubscriberParams(req.body);
 
   Subscriber.findByIdAndUpdate(subscriberId, {
     $set: subscriberData
@@ -82,7 +82,7 @@ function show(req, res, next) {
   Subscriber.findById(subscriberId)
     .then(subscriber => {
       res.locals.subscriber = subscriber;
-      next()
+      next();
     })
     .catch(error => {
       console.log(`Error fetching subscriber by ID: ${error.message}`);
