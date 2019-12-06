@@ -4,9 +4,13 @@ const errorController = require('./controllers/errorController');
 const usersController = require('./controllers/usersController');
 const homeController = require('./controllers/homeController');
 const methodOverride = require('method-override');
+const expressSession = require('express-session');
+const connectFlash = require('connect-flash');
+const cookieParser = require('cookie-parser');
+const passcodes = require('./passcodes');
+const mongoose = require('mongoose');
 const layouts = require('express-ejs-layouts');
 const express = require('express');
-const mongoose = require('mongoose');
 const router = express.Router();
 const app = express();
 
@@ -25,10 +29,20 @@ mongoose.connect(
 // Application settings
 app.use(methodOverride('_method', { methods: ['POST', 'GET'] }));
 app.use(express.urlencoded({ extended: false }));
+app.use(express.static('public'));
 app.use(express.json());
 app.use(layouts);
+app.use(connectFlash());
+app.use(cookieParser(passcodes.cookieParserSecretPasscode));
+app.use(expressSession({
+  secret: passcodes.expressSessionSecretPasscode,
+  cookie: {
+    maxAge: 3600000
+  },
+  resave: false,
+  saveUninitialized: false
+}));
 app.use('/', router);
-app.use(express.static('public'));
 app.set('port', process.env.PORT || 3000);
 app.set('view engine', 'ejs');
 
