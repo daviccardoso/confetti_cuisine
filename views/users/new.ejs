@@ -1,24 +1,29 @@
-<div class="data-form">
+<div class="data-form col-sm-6">
   <form action="/users/create" method="POST">
     <h2>Create a new user:</h2>
     <p>
       <label for="inputFirstName">First Name</label>
+      <br>
       <input type="text" name="first" id="inputFirstName" placeholder="First" autofocus>
     </p>
     <p>
       <label for="inputLastName">Last Name</label>
+      <br>
       <input type="text" name="last" id="inputLastName" placeholder="Last">
     </p>
     <p>
       <label for="inputPassword">Password</label>
+      <br>
       <input type="password" name="password" id="inputPassword" placeholder="Password" required>
     </p>
     <p>
       <label for="inputEmail">Email address</label>
+      <br>
       <input type="email" name="email" id="inputEmail" placeholder="Email address" required>
     </p>
     <p>
       <label for="inputZipCode">Zip Code</label>
+      <br>
       <input type="text" name="zipCode" id="inputZipCode" pattern="\d*" placeholder="Zip Code" required>
     </p>
     <p>

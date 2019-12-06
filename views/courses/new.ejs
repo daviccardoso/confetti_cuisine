@@ -1,20 +1,24 @@
-<div class="data-form">
+<div class="data-form col-sm-6">
   <form action="/courses/create" method="POST">
     <h2>Create a new course:</h2>
     <p>
       <label for="inputTitle">Title</label>
+      <br>
       <input type="text" name="title" id="inputTitle" placeholder="Title" autofocus>
     </p>
     <p>
       <label for="inputDescription">Description</label>
+      <br>
       <input type="text" name="description" id="inputDescription" placeholder="Description" required>
     </p>
     <p>
       <label for="inputMaxStudents">Maximum Number of Students</label>
+      <br>
       <input type="number" name="maxStudents" id="inputMaxStudents" placeholder="Max Number of Students" required>
     </p>
     <p>
       <label for="inputCost">Cost</label>
+      <br>
       <input type="number" name="cost" id="inputCost" placeholder="Cost" required>
     </p>
     <button type="submit">Create</button>
