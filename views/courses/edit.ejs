@@ -1,25 +1,27 @@
-<form class="col-sm-6" action="<%= `/courses/${course._id}/update?_method=PUT` %>" method="POST">
-  <p>
-    <label for="title">Title</label>
-    <br>
-    <input type="text" name="title" placeholder="Title" value="<%= course.title %>" autofocus>
-  </p>
-  <p>
-    <label for="Description">Description</label>
-    <br>
-    <input type="text" name="description" placeholder="Description" value="<%= course.description %>">
-  </p>
-  <p>
-    <label for="zipCode">Maximum Number of Students</label>
-    <br>
-    <input type="number" name="maxStudents" placeholder="Max Number of Students" value="<%= course.maxStudents %>">
-  </p>
-  <p>
-    <label for="cost">Cost</label>
-    <br>
-    <input type="number" name="cost" placeholder="Cost" value="<%= course.cost %>">
-  </p>
-  <p>
-    <input class="button" type="submit" value="submit">
-  </p>
-</form>
+<div class="data-form">
+  <form action="<%= `/courses/${course._id}/update?_method=PUT` %>" method="POST">
+    <p>
+      <label for="title">Title</label>
+      <br>
+      <input type="text" name="title" placeholder="Title" value="<%= course.title %>" autofocus>
+    </p>
+    <p>
+      <label for="Description">Description</label>
+      <br>
+      <input type="text" name="description" placeholder="Description" value="<%= course.description %>">
+    </p>
+    <p>
+      <label for="zipCode">Maximum Number of Students</label>
+      <br>
+      <input type="number" name="maxStudents" placeholder="Max Number of Students" value="<%= course.maxStudents %>">
+    </p>
+    <p>
+      <label for="cost">Cost</label>
+      <br>
+      <input type="number" name="cost" placeholder="Cost" value="<%= course.cost %>">
+    </p>
+    <p>
+      <input class="button" type="submit" value="submit">
+    </p>
+  </form>
+</div>

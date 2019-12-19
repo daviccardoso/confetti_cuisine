@@ -1,20 +1,22 @@
-<form class="col-sm-6" action="<%= `/subscribers/${subscriber._id}/update?_method=PUT` %>" method="POST">
-  <p>
-    <label for="name">Name</label>
-    <br>
-    <input type="text" name="name" placeholder="Name" value="<%= subscriber.name %>" autofocus>
-  </p>
-  <p>
-    <label for="email">Email</label>
-    <br>
-    <input type="email" name="email" placeholder="Email" value="<%= subscriber.email %>">
-  </p>
-  <p>
-    <label for="zipCode">Zip Code</label>
-    <br>
-    <input type="text" name="zipCode" placeholder="Zip Code" pattern="[0-9]{5}" value="<%= subscriber.zipCode %>">
-  </p>
-  <p>
-    <input class="button" type="submit" value="submit">
-  </p>
-</form>
+<div class="data-form">
+  <form action="<%= `/subscribers/${subscriber._id}/update?_method=PUT` %>" method="POST">
+    <p>
+      <label for="name">Name</label>
+      <br>
+      <input type="text" name="name" placeholder="Name" value="<%= subscriber.name %>" autofocus>
+    </p>
+    <p>
+      <label for="email">Email</label>
+      <br>
+      <input type="email" name="email" placeholder="Email" value="<%= subscriber.email %>">
+    </p>
+    <p>
+      <label for="zipCode">Zip Code</label>
+      <br>
+      <input type="text" name="zipCode" placeholder="Zip Code" pattern="[0-9]{5}" value="<%= subscriber.zipCode %>">
+    </p>
+    <p>
+      <input class="button" type="submit" value="submit">
+    </p>
+  </form>
+</div>
